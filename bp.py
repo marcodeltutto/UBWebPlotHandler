@@ -321,8 +321,6 @@ def ProcessImages(documents_to_process, documents, tempDir):
             base = aFile['base']
             exts = aFile['exts']
             
-            print 'exts is', exts
-
             # Favoured versions to make a thumbnail version from
             srcs = ['png', 'jpg', 'jpeg', 'eps', 'pdf', 'ps']
             

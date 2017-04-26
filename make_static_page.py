@@ -29,7 +29,7 @@ class Tag:
 header = '''<!DOCTYPE html>
 <html><head>
 <meta charset="UTF-8">
-<title>NOvA blessed plots</title>
+<title>MicroBooNE Approved Plots</title>
 
 <style type="text/css">
   a:link{color:black}
