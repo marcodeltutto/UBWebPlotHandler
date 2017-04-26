@@ -144,7 +144,7 @@ if len(new) > 0:
 fout_main = open(config.WEB_PATH + '/index.html', 'w')
 fout_main.write(header)
 with Tag(fout_main, 'h1'):
-    fout_main.write('NOvA blessed plots')
+    fout_main.write('MicroBooNE Approved Plots')
 
 
 for page in page_cfg:
