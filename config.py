@@ -2,7 +2,7 @@ import os         #/// Interact with OS
 
 #///////////////////////////////////////////////////////////////////////////////
 # User Configuration
-WEB_PATH      = './'#'/nusoft/app/web/htdoc/nova/blessedplots/'
+WEB_PATH      = '/web/sites/m/microboone-exp.fnal.gov/htdocs/public/approved_plots/'
 JSON_FILENAME = 'BlessedPlotsMeta.json'
 PLOT_SUBDIR   = 'plots/'
 BLESSED_PLOTS = './BlessedPlots.json'

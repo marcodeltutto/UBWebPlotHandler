@@ -80,7 +80,8 @@ def GetDocumentInfoFromDocDB():
 
     for doc in _docIds:
         idx += 1
-
+ 
+        
         # Get document from DocDB and check that it actually exists
         res = helpers.GetDoc(doc)['docdb']
         if 'document' not in res:
@@ -88,7 +89,7 @@ def GetDocumentInfoFromDocDB():
             continue
         
         item = res['document']
-        
+            
         # Construct the entry
         entry = DocDBEntry()
         entry.id       = int(item['@id'])
@@ -98,7 +99,7 @@ def GetDocumentInfoFromDocDB():
         entry.url      = item['docrevision']['@href']
 
         log.info('[%i/%i] Fetching metadata for doc %i v%i -- %s' % (idx, len(_docIds), entry.id, entry.revision, entry.title))
-
+        
         # Build author list (data structure is different if
         # there are multiple authors)
         if type(item['docrevision']['author']) is list:
@@ -110,6 +111,7 @@ def GetDocumentInfoFromDocDB():
                         'id'        : int(author['@id'])
                     }
                 )
+            
         else:
             author = item['docrevision']['author']
             entry.authors.append(
@@ -119,19 +121,20 @@ def GetDocumentInfoFromDocDB():
                     'id'        : int(author['@id'])
                 }
             )
+            
 
         # Get list of info for this entry
         docXml = helpers.CallDocDB('ShowDocument', 'docid', item['@id'])
-
+        
         docID = docXml['docdb']['document']['docrevision']['@docid']
         rev   = docXml['docdb']['document']['docrevision']['@version']
-
+        
         # Get topics for this doc
         entry.topics = helpers.GetTopicsByDocID(doc)
-
+        
         _entries.append(entry.__dict__)
-
-        return _entries
+        
+    return _entries
 
 
 #///////////////////////////////////////////////////////////////////////////////
@@ -305,9 +308,7 @@ def ProcessImages(documents_to_process, documents, tempDir):
         document = next((doc for doc in documents if doc['id'] == docID), None)
 
         tempDocDir = tempDir + str(document['id']) + '/'
-        print 'tempDocDir is', tempDocDir
         thumDir = tempDocDir + '/thumbs/'
-        print 'thumDir is', thumDir
         os.mkdir(thumDir)
 
         for aFile in document['files']:
@@ -326,9 +327,9 @@ def ProcessImages(documents_to_process, documents, tempDir):
                     if src == 'pdf':
                         opt = ' -define pdf:use-cropbox=true -transparent-color white '
                         opt2 = ' -transparent-color white ' # sometimes the cropbox is trouble
-                    cmd = 'convert ' + opt + tempDocDir + base + '.'+src + ' -resize 400 ' + thumDir + base + '_thumb.png'
+                    cmd = 'convert ' + opt + tempDocDir + base + '.'+src + ' -resize 400 -quiet ' + thumDir + base + '_thumb.png'
                     cmd2 = None
-                    if opt2: cmd2 = 'convert ' + opt2 + tempDocDir + base + '.'+src + ' -resize 400 ' + thumDir + base + '_thumb.png'
+                    if opt2: cmd2 = 'convert ' + opt2 + tempDocDir + base + '.'+src + ' -resize 400 -quiet ' + thumDir + base + '_thumb.png'
 
                     # In case of tarballs etc there can be subdirs required
                     # in the thumbs directory. Maybe we should have made
@@ -345,7 +346,6 @@ def ProcessImages(documents_to_process, documents, tempDir):
                     log.success('Created thumbnail from '+base+'.'+src+': '+thumDir + base + '_thumb.png')
                     break
 
-    print 'UUUU tempdir is', tempDir
     os.system('cp -rpf ' + tempDir + '* ' + config.WEB_PATH + config.PLOT_SUBDIR)
     shutil.rmtree(tempDir)
 
