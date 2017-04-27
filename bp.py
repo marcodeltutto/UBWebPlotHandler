@@ -128,17 +128,10 @@ def GetDocumentInfoFromDocDB():
 
         # Get topics for this doc
         entry.topics = helpers.GetTopicsByDocID(doc)
-        
-        print 'EEEEE*************************************'
-        print entry.__dict__
-        print 'EEE*************************************'
 
         _entries.append(entry.__dict__)
-        print 'EEEEE*************************************'
-        print _entries
-        print 'EEE*************************************'
 
-    return _entries
+        return _entries
 
 
 #///////////////////////////////////////////////////////////////////////////////
@@ -352,6 +345,7 @@ def ProcessImages(documents_to_process, documents, tempDir):
                     log.success('Created thumbnail from '+base+'.'+src+': '+thumDir + base + '_thumb.png')
                     break
 
+    print 'UUUU tempdir is', tempDir
     os.system('cp -rpf ' + tempDir + '* ' + config.WEB_PATH + config.PLOT_SUBDIR)
     shutil.rmtree(tempDir)
 
