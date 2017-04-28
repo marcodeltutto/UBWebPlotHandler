@@ -1,3 +1,3 @@
 # UBWebPlotHandler
 
-Originally written by Chris BackHouse for the NOvA experiment. Adapted here for MicroBooNE.
+Originally written by Chris Backhouse for the NOvA experiment. Adapted here for MicroBooNE.
