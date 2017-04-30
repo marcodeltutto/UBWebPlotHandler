@@ -69,6 +69,8 @@ function Show()
     cs[i].hidden = false;
   }
 }
+
+
 </script>
 
 <script type="text/x-mathjax-config">
@@ -80,6 +82,8 @@ function Show()
 
 </head>
 <body bgcolor="#f0f0f0">
+
+
 
 <div class="container">
   <div class="row row-offcanvas row-offcanvas-right">
@@ -105,7 +109,7 @@ def AddFile(fout, deets, f):
 
     fout.write('\n')
 
-    with Tag(fout, 'div', {'class': 'col-xs-6 col-lg-4'}):
+    with Tag(fout, 'div', {'class': 'plot'}):
         with Tag(fout, 'div', {'class': 'thumbnail'}):
             fout.write('<img src="'+thumb+'" width="100%"><br>\n')
             with Tag(fout, 'center'):
@@ -139,7 +143,6 @@ fout_main = open(config.WEB_PATH + '/index.html', 'w')
 fout_main.write(header)
 with Tag(fout_main, 'h1'):
     fout_main.write('MicroBooNE Approved Plots')
-
 
 for page in page_cfg:
     cat = page['category']
@@ -182,7 +185,7 @@ for page in page_cfg:
 
         fout_sub.write('\n')
 
-        with Tag(fout_sub, 'div', {'class': 'container-fluid'}):
+        with Tag(fout_sub, 'div'):
             for f in deets['files']:
                 AddFile(fout_sub, deets, f)
             with Tag(fout_sub, 'div', {'class': 'clearfix'}): # a clear way to go to newline
