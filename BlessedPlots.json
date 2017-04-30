@@ -1,8 +1,38 @@
 [
   {
-    "category": "Test Category",
+    "category": "Event Displays",
+    "docs": [4658, 8049, 4787, 4687],
+    "caption": "Test caption.",
+    "thumb": "4269/thumbs/ND_100m_uB_T600_onaxis_nue_appearance_ecalo2_nu_vePhot0_05_gap3_lessCosmics_xsec_0_flux_6_dirt_cos_sensPlot_thumb.png"
+  },
+  {
+    "category": "SBN Proposal",
     "docs": [4269],
     "caption": "Test caption.",
-    "thumb": ""
+    "thumb": "4269/thumbs/ND_100m_uB_T600_onaxis_nue_appearance_ecalo2_nu_vePhot0_05_gap3_lessCosmics_xsec_0_flux_6_dirt_cos_sensPlot_thumb.png"
+  },
+  {
+    "category": "Beam",
+    "docs": [5390],
+    "caption": "Test caption.",
+    "thumb": "4269/thumbs/ND_100m_uB_T600_onaxis_nue_appearance_ecalo2_nu_vePhot0_05_gap3_lessCosmics_xsec_0_flux_6_dirt_cos_sensPlot_thumb.png"
+  },
+  {
+    "category": "Oscillation",
+    "docs": [4269],
+    "caption": "Test caption.",
+    "thumb": "4269/thumbs/ND_100m_uB_T600_onaxis_nue_appearance_ecalo2_nu_vePhot0_05_gap3_lessCosmics_xsec_0_flux_6_dirt_cos_sensPlot_thumb.png"
+  },
+  {
+    "category": "Cross Section",
+    "docs": [4331],
+    "caption": "Test caption.",
+    "thumb": "4269/thumbs/ND_100m_uB_T600_onaxis_nue_appearance_ecalo2_nu_vePhot0_05_gap3_lessCosmics_xsec_0_flux_6_dirt_cos_sensPlot_thumb.png"
+  },
+  {
+    "category": "Detector",
+    "docs": [4717, 3571, 4411],
+    "caption": "Test caption.",
+    "thumb": "3461/thumbs/calibrationPulse_thumb.png"
   }
  ]

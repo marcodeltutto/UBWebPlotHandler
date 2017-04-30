@@ -2,6 +2,7 @@
 
 import config
 
+import os
 import json
 from time import strftime
 
@@ -29,41 +30,23 @@ class Tag:
 header = '''<!DOCTYPE html>
 <html><head>
 <meta charset="UTF-8">
-<title>MicroBooNE Approved Plots</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Web-page describibing the VENu mobile app for understanding neutrino physics.">
+<meta name="author" content="Marco Del Tutto">
 
-<style type="text/css">
-  a:link{color:black}
-  a:visited{color:black}
-  a:hover{color:red}
-  a:active{color:red}
+<!-- Bootstrap core CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
-  .plot
-  {
-    display: inline-block;
-    text-align: center;
-    border: 2px solid gray;
-    background-color: white;
-    padding: 5px;
-    margin: 5px;
-    vertical-align: top
-  }
-  .sublink
-  {
-    display: inline-block;
-    border: 2px solid gray;
-    background-color: white;
-    padding: 5px;
-    margin: 5px;
-    vertical-align: top;
-    width: 400px
-  }
-  .caption
-  {
-    text-align: left;
-    max-width: 400px;
-  }
-</style>
+<!-- Custom styles for this template -->
+<link href="offcanvas.css" rel="stylesheet">
 
+<!-- Theme CSS, order is important 
+<link href="ubplotstyle.css" rel="stylesheet">-->
+
+<script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
+
+    
 <script>
 function Hide()
 {
@@ -97,6 +80,13 @@ function Show()
 
 </head>
 <body bgcolor="#f0f0f0">
+
+<div class="container">
+  <div class="row row-offcanvas row-offcanvas-right">
+    <div class="jumbotron">
+      <h1>MicroBooNE Approved Plots</h1>
+      <p>This page shows MicroBooNE plots that have been approved by the MicroBooNE collaboration to be shown publicly.</p>
+    </div>
 '''
 
 header2 = '''
@@ -107,21 +97,25 @@ header2 = '''
 '''
 
 def footer():
-    return '\n<hr>\nLast updated '+strftime('%Y-%m-%d %H:%M:%S %Z')+'\n</body></html>'
+    return '\n  </div>\n</div>\n\n<hr>\nLast updated '+strftime('%Y-%m-%d %H:%M:%S %Z')+'\n</body></html>'
 
 
 def AddFile(fout, deets, f):
     thumb = 'plots/'+str(deets['id'])+'/thumbs/'+f['base']+'_thumb.png'
 
-    with Tag(fout, 'span', {'class': 'plot'}):
-        fout.write('<img src="'+thumb+'"><br>\n')
-        for ext in f['exts']:
-            with Tag(fout, 'a', {'href': 'plots/'+str(deets['id'])+'/'+f['base']+'.'+ext}):
-                fout.write('['+ext+']')
-            fout.write('\n')
+    fout.write('\n')
 
-        with Tag(fout, 'div', {'class': 'caption'}):
-            fout.write(f['caption'])
+    with Tag(fout, 'div', {'class': 'col-xs-6 col-lg-4'}):
+        with Tag(fout, 'div', {'class': 'thumbnail'}):
+            fout.write('<img src="'+thumb+'" width="100%"><br>\n')
+            with Tag(fout, 'center'):
+                for ext in f['exts']:
+                    with Tag(fout, 'a', {'href': 'plots/'+str(deets['id'])+'/'+f['base']+'.'+ext}):
+                        fout.write('['+ext+']')
+                    fout.write('\n')
+    
+                with Tag(fout, 'p', {'class': 'caption'}):
+                    fout.write(f['caption'])
 
     fout.write('\n\n')
 
@@ -138,7 +132,7 @@ new = [n for n in allNos if n not in allCatNos]
 if len(new) > 0:
     page_cfg = [{'category': 'New / uncategorized',
                  'docs': new,
-                 'caption': 'Plots that have not yet been categorized. Please edit Utilities/BlessedPlots/BlessedPlots.json to do so.'}] + page_cfg
+                 'caption': 'Plots that have not yet been categorized. Please edit BlessedPlots.json to do so.'}] + page_cfg
 
 
 fout_main = open(config.WEB_PATH + '/index.html', 'w')
@@ -151,22 +145,23 @@ for page in page_cfg:
     cat = page['category']
     safe_cat = cat.replace(' ', '_').replace('/', 'and')
 
-    with Tag(fout_main, 'span', {'class': 'sublink'}):
-        with Tag(fout_main, 'h3'):
-            with Tag(fout_main, 'a', {'href': safe_cat+'.html'}):
+    with Tag(fout_main, 'div', {'class': 'col-xs-6 col-lg-4'}):
+        with Tag(fout_main, 'div', {'class': 'thumbnail'}):
+            with Tag(fout_main, 'h2'):
                 fout_main.write(cat)
-
-        with Tag(fout_main, 'table'):
-            with Tag(fout_main, 'tr'):
-                if 'thumb' in page:
-                    with Tag(fout_main, 'td', {'valign': 'top'}):
-                        fout_main.write('<img src="plots/'+page['thumb']+'" width="200px">')
+            if 'thumb' in page:
+                fout_main.write('<img src="plots/'+page['thumb']+'" width="100%">')
+            with Tag(fout_main, 'p', {'class': 'test'}):
                 if 'caption' in page:
-                    with Tag(fout_main, 'td', {'valign': 'top'}):
-                        fout_main.write(page['caption'])
+                    fout_main.write(page['caption'])
+            with Tag(fout_main, 'p', {'class': 'test'}):
+                with Tag(fout_main, 'a', {'class': 'btn btn-default', 'href': safe_cat+'.html', 'role': 'button'}):
+                    fout_main.write('View plots &raquo;')
+                
 
-    fout_main.write('\n')
+        fout_main.write('\n')
 
+    # Now write pages for each category
     fout_sub = open(config.WEB_PATH + '/' + safe_cat+'.html', 'w')
     fout_sub.write(header)
     fout_sub.write(header2)
@@ -183,11 +178,21 @@ for page in page_cfg:
         with Tag(fout_sub, 'h2'):
             with Tag(fout_sub, 'a', {'href': deets['url']}):
                 fout_sub.write('docdb '+str(docNo))
-            fout_sub.write(' - '+deets['title'])
+                fout_sub.write(' - '+deets['title'])
 
-        for f in deets['files']:
-            AddFile(fout_sub, deets, f)
+        fout_sub.write('\n')
+
+        with Tag(fout_sub, 'div', {'class': 'container-fluid'}):
+            for f in deets['files']:
+                AddFile(fout_sub, deets, f)
+            with Tag(fout_sub, 'div', {'class': 'clearfix'}): # a clear way to go to newline
+                fout_sub.write(' ')
 
     fout_sub.write(footer())
 
 fout_main.write(footer())
+
+# Now copy the css style 
+os.system('cp ./offcanvas.css ' + config.WEB_PATH)
+
+

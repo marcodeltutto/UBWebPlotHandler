@@ -9,14 +9,13 @@ RELEASE="development"
 RELEASE_DIR=~/
 
 # Setup nova
-echo Setting up test release
-source /grid/fermiapp/nova/novaart/novasvn/setup/setup_nova.sh -r ${RELEASE}
-pushd ${RELEASE_DIR}/Utilities/BlessedPlots
-srt_setup -a
+echo Setting up LArSoft release
+source /grid/fermiapp/products/uboone/setup_uboone.sh
+setup uboonecode v06_26_01_01 -q e10:prof
 
 # Get the latest DocDB json file
 echo Updating BlessedPlots.json
-svn update BlessedPlots.json
+cp /web/sites/m/microboone-exp.fnal.gov/htdocs/public/approved_plots/BlessedPlots.json .
 
 # Run the blessed plot maker
 echo Running Blessed Plots generation
