@@ -3,7 +3,6 @@
 #///////////////////////////////////////////////////////////////////////////////
 #///////////////////////////////////////////////////////////////////////////////
 # BLESSED PLOTS WEB BACKEND
-# Maintained by: Justin Vasel <jvasel@indiana.edu>
 #
 # This script maintains the database of blessed plots for presentation on the
 # web.
@@ -33,7 +32,9 @@ documents_to_process = bp.FindChanges(documents_curr, documents_prev)
 tmpdir = bp.DownloadFiles(documents_to_process)
 
 # Look through the directory to associate image files with their captions
-bp.FindFiles(tmpdir, documents_curr)
+# It also takes documents_to_process and documents_prev as it will copy
+# the old json info back if the old entry has not been modified
+bp.FindFiles(tmpdir, documents_curr, documents_to_process, documents_prev)
 
 # Generate thumbnails in the web directory. The first argument is simply an
 # array of DocDB IDs, so the second argument is needed to extract necessary

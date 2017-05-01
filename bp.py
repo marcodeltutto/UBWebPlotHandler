@@ -250,7 +250,7 @@ def DownloadFiles(docs):
 
 #///////////////////////////////////////////////////////////////////////////////
 # Look through all the downloaded files for captions and images, update documents_curr
-def FindFiles(tempdir, documents_curr):
+def FindFiles(tempdir, documents_curr, documents_to_process, documents_prev):
 
     files = collections.defaultdict(lambda: {}) # dict from id to dict from base to list of extensions
 
@@ -286,10 +286,18 @@ def FindFiles(tempdir, documents_curr):
 
     # Save this information into the actual documents
     for doc in documents_curr:
-        doc['files'] = []
-        docid = doc['id']
-        for base in files[docid]:
-            doc['files'].append(files[docid][base])
+        # Do it only if we are suppose to update or add this document
+        if doc['id'] in documents_to_process:
+            doc['files'] = []
+            docid = doc['id']
+            for base in files[docid]:
+                doc['files'].append(files[docid][base])
+        # Else fetch info from previous json
+        else:
+            for doc_prev in documents_prev:
+              if doc_prev['id'] == doc['id']:
+                  doc['files'] = doc_prev['files']
+
 
 
 #///////////////////////////////////////////////////////////////////////////////
