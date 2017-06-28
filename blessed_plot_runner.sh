@@ -8,6 +8,9 @@
 RELEASE="development"
 RELEASE_DIR=~/
 
+# File that contains docdb password
+export UBDOCPWDFILE=/uboone/app/home/ubooneweb/.ub_docdb_pw.txt
+
 # Setup nova
 echo Setting up LArSoft release
 source /grid/fermiapp/products/uboone/setup_uboone.sh
@@ -25,6 +28,6 @@ python RunBlessedPlots.py
 echo Generating html
 python make_static_page.py
 
-popd
+#popd
 
 echo DONE
