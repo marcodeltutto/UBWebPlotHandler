@@ -28,21 +28,14 @@ class Tag:
 
 
 header = '''<!DOCTYPE html>
-<html><head>
-<meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Web-page describibing the VENu mobile app for understanding neutrino physics.">
-<meta name="author" content="Marco Del Tutto">
+<!--#set var="META_TITLE" value="MicroBooNE | Analysis Tools"-->
+<!--#set var="PAGE_HEADER" value="MicroBooNE at Work"-->
+<!--#set var="BODY_CLASSES" value="section-default"-->
 
-<!-- Bootstrap core CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-
-<!-- Custom styles for this template -->
-<link href="offcanvas.css" rel="stylesheet">
-
-<!-- Theme CSS, order is important 
-<link href="ubplotstyle.css" rel="stylesheet">-->
+<!--#include virtual="/fnalincludes/wide-page-top.html"-->
+<!--//***********************************************************
+************ DO NOT REMOVE CODE ABOVE ***************************
+*************************************************************//-->
 
 <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
 
@@ -85,12 +78,6 @@ function Show()
 
 
 
-<div class="container">
-  <div class="row row-offcanvas row-offcanvas-right">
-    <div class="jumbotron">
-      <h1>MicroBooNE Approved Plots</h1>
-      <p>This page shows MicroBooNE plots that have been approved by the MicroBooNE collaboration to be shown publicly.</p>
-    </div>
 '''
 
 header2 = '''
@@ -101,7 +88,26 @@ header2 = '''
 '''
 
 def footer():
-    return '\n  </div>\n</div>\n\n<hr>\nLast updated '+strftime('%Y-%m-%d %H:%M:%S %Z')+'\n</body></html>'
+    footer = '\n\n<hr>\nLast updated '+strftime('%Y-%m-%d %H:%M:%S %Z') + '''
+<!--//***********************************************************
+************ DO NOT REMOVE CODE BELOW *************************** 
+*************************************************************//-->
+
+<!--//========== Last Modifed ==========//-->
+<div class="last-modified">
+    <div class="last-modified-inner">
+        <ul>
+                <li class="first title">Last modified</li>
+                        <li class="date"><!-- #BeginDate format:Am3 --><!--#config timefmt="%m/%d/%Y" --><!--#echo var="LAST_MODIFIED"--><!-- #EndDate --></li>
+                <li class="last email"><a href="http://www.fnal.gov/pub/contact/email.html">email Fermilab</a></li>
+        </ul>
+    </div><!-- /.last-modified-inner -->
+</div><!-- /.last-modified -->
+<!--//========== END: Last Modifed ==========//-->
+
+<!--#include virtual="/fnalincludes/page-bottom.html"-->
+'''
+    return footer
 
 
 def AddFile(fout, deets, f):
@@ -109,7 +115,7 @@ def AddFile(fout, deets, f):
 
     fout.write('\n')
 
-    with Tag(fout, 'div', {'class': 'plot'}):
+    with Tag(fout, 'div', {'class': 'col-xs-6 col-lg-4'}):
         with Tag(fout, 'div', {'class': 'thumbnail'}):
             fout.write('<img src="'+thumb+'" width="100%"><br>\n')
             with Tag(fout, 'center'):
@@ -141,8 +147,12 @@ if len(new) > 0:
 
 fout_main = open(config.WEB_PATH + '/index.html', 'w')
 fout_main.write(header)
+
 with Tag(fout_main, 'h1'):
     fout_main.write('MicroBooNE Approved Plots')
+
+with Tag(fout_main, 'h4'):
+    fout_main.write('This page shows MicroBooNE plots that have been approved by the MicroBooNE collaboration to be shown publicly.<br><br>')
 
 for page in page_cfg:
     cat = page['category']

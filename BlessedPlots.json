@@ -2,37 +2,37 @@
   {
     "category": "Event Displays",
     "docs": [4987, 8049, 4658, 4787, 4687],
-    "caption": "Test caption.",
+    "caption": "A collection of approved event displays",
     "thumb": "8049/thumbs/evd-numi-10811-5-2549-april9-2017-plane2-enlarged_thumb.png"
   },
   {
     "category": "SBN Proposal",
     "docs": [4269],
-    "caption": "Test caption.",
+    "caption": "Images and plots from the Short Baseline Neutrino program proposal",
     "thumb": "4269/thumbs/ND_100m_uB_T600_onaxis_nue_appearance_ecalo2_nu_vePhot0_05_gap3_lessCosmics_xsec_0_flux_6_dirt_cos_sensPlot_thumb.png"
   },
   {
     "category": "Beam",
-    "docs": [5390],
-    "caption": "Test caption.",
-    "thumb": "4269/thumbs/ND_100m_uB_T600_onaxis_nue_appearance_ecalo2_nu_vePhot0_05_gap3_lessCosmics_xsec_0_flux_6_dirt_cos_sensPlot_thumb.png"
+    "docs": [5390, 8804],
+    "caption": "Plots related to the neutrino beam",
+    "thumb": "5390/thumbs/BNB_thumb.png"
   },
   {
     "category": "Oscillation",
     "docs": [4269],
-    "caption": "Test caption.",
-    "thumb": "4269/thumbs/ND_100m_uB_T600_onaxis_nue_appearance_ecalo2_nu_vePhot0_05_gap3_lessCosmics_xsec_0_flux_6_dirt_cos_sensPlot_thumb.png"
+    "caption": "Plots related to neutrino oscillations",
+    "thumb": "4269/thumbs/Nue_appearance_ecalo2_nu_vePhot0_05_gap3_lessCosmics_470m_globBF_thumb.png"
   },
   {
     "category": "Cross Section",
     "docs": [4331],
-    "caption": "Test caption.",
-    "thumb": "4269/thumbs/ND_100m_uB_T600_onaxis_nue_appearance_ecalo2_nu_vePhot0_05_gap3_lessCosmics_xsec_0_flux_6_dirt_cos_sensPlot_thumb.png"
+    "caption": "Plots related to neutrino cross section",
+    "thumb": "4331/thumbs/c_thumb.png"
   },
   {
     "category": "Detector",
-    "docs": [4717, 3571, 4411],
-    "caption": "Test caption.",
-    "thumb": "3461/thumbs/calibrationPulse_thumb.png"
+    "docs": [4717, 3571, 4411, 3461],
+    "caption": "Plots related to the MicroBooNE detector",
+    "thumb": "4717/thumbs/noise_vs_time_thumb.png"
   }
  ]
