@@ -73,8 +73,20 @@ function Show()
   src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 </script>
 
-</head>
-<body bgcolor="#f0f0f0">
+
+<style>
+.plot
+  {
+    width: 29%;
+    display: inline-block;
+    text-align: center;
+    //border: 2px solid gray;
+    background-color: white;
+    padding: 5px;
+    margin: 5px;
+    vertical-align: top
+  }
+</style>
 
 
 
@@ -115,7 +127,7 @@ def AddFile(fout, deets, f):
 
     fout.write('\n')
 
-    with Tag(fout, 'div', {'class': 'col-xs-6 col-lg-4'}):
+    with Tag(fout, 'div', {'class': 'plot'}):
         with Tag(fout, 'div', {'class': 'thumbnail'}):
             fout.write('<img src="'+thumb+'" width="100%"><br>\n')
             with Tag(fout, 'center'):
@@ -123,9 +135,9 @@ def AddFile(fout, deets, f):
                     with Tag(fout, 'a', {'href': 'plots/'+str(deets['id'])+'/'+f['base']+'.'+ext}):
                         fout.write('['+ext+']')
                     fout.write('\n')
-    
-                with Tag(fout, 'p', {'class': 'caption'}):
-                    fout.write(f['caption'])
+                if config.SHOW_CAPTION:  
+                    with Tag(fout, 'p', {'class': 'caption'}):
+                        fout.write(f['caption'])
 
     fout.write('\n\n')
 
@@ -158,7 +170,7 @@ for page in page_cfg:
     cat = page['category']
     safe_cat = cat.replace(' ', '_').replace('/', 'and')
 
-    with Tag(fout_main, 'div', {'class': 'col-xs-6 col-lg-4'}):
+    with Tag(fout_main, 'div', {'class': 'plot'}):
         with Tag(fout_main, 'div', {'class': 'thumbnail'}):
             with Tag(fout_main, 'h2'):
                 fout_main.write(cat)
