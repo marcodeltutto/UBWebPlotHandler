@@ -264,6 +264,11 @@ def FindFiles(tempdir, documents_curr, documents_to_process, documents_prev):
                 path = path[len(str(docid))+1:] # drop the docid too for the rest
                 base = path[:-12]
                 files[docid][base] = {'base': base, 'caption': cap, 'exts': []}
+            elif filename.endswith('.txt') and not filename.startswith('.'):
+                cap = unicode(file(tempdir+'/'+path, 'r').read(), errors='ignore')
+                path = path[len(str(docid))+1:] # drop the docid too for the rest
+                base = path[:-4]
+                files[docid][base] = {'base': base, 'caption': cap, 'exts': []}
 
     # Now find matching image files
     for root, directories, filenames in os.walk(tempdir):
@@ -271,10 +276,11 @@ def FindFiles(tempdir, documents_curr, documents_to_process, documents_prev):
             path = os.path.join(root, filename)[len(tempdir):]
             docid = int(path[:path.find('/')])
             path = path[len(str(docid))+1:] # drop the docid too for the rest
-            if not filename.endswith('_caption.txt') and not filename.startswith('.'):
+            if not filename.endswith('_caption.txt') and not filename.endswith('.txt') and not filename.startswith('.'):
                 good = False
                 for e in config.EXTS:
-                    if filename.endswith(e): good = True
+                    if filename.endswith(e): 
+                        good = True
                 if not good: continue
 
                 stem = path[:path.rfind('.')]
@@ -291,7 +297,9 @@ def FindFiles(tempdir, documents_curr, documents_to_process, documents_prev):
             doc['files'] = []
             docid = doc['id']
             for base in files[docid]:
-                doc['files'].append(files[docid][base])
+                # Append file only if there is a caption .txt file
+                if len(files[docid][base]['exts']):
+                    doc['files'].append(files[docid][base])
         # Else fetch info from previous json
         else:
             for doc_prev in documents_prev:
